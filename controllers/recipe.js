@@ -1,7 +1,7 @@
 import { RecipeModel } from "../models/recipe.js";
 
 //Get all Recipes
-export const getRecipes =  async (req, res, next) =>{
+export const getRecipes = async (req, res, next) => {
     try {
         //Get all recipes from database
         const allRecipes = await RecipeModel.find();
@@ -9,7 +9,7 @@ export const getRecipes =  async (req, res, next) =>{
         res.json(allRecipes);
     } catch (error) {
         next(error);
-        
+
     }
 }
 
@@ -29,22 +29,30 @@ export const postRecipes = async (req, res, next) => {
 
 
 //patch recipe
-export const  patchRecipe = (req, res) => {
-    //return response
-    res.json(`Recipe with ID ${req.params.id} Updated`);
+export const patchRecipe = async (req, res, next) => {
+
+    try {
+        //Update recipe by id
+        const updatedRecipe = await RecipeModel.findByIdAndUpdate(req.params.id, req.body,{new:true});;
+    
+        //return responses
+        res.json(req.body);
+    } catch (error) {
+        next(error)
+    }
 }
 
 
 //Delete Recipe
 export const deleteRecipe = async (req, res, next) => {
-   try {
+    try {
 
-    //Delete recipe by id
-    const deleteRecipe = await RecipeModel.findByIdAndDelete(req.params.id);
-     res.json(deleteRecipe);
-   } catch (error) {
-    next (error);
-   }
+        //Delete recipe by id
+        const deleteRecipe = await RecipeModel.findByIdAndDelete(req.params.id);
+        res.json(deleteRecipe);
+    } catch (error) {
+        next(error);
+    }
 }
 
 
