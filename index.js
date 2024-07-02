@@ -3,18 +3,21 @@ import mongoose from "mongoose";
 import expressOasGenerator from "express-oas-generator";
 import recipeRouter from "./routes/recipe.js";
 import { categoryRouter } from "./routes/category .js";
+
 //Connect to database
 await mongoose.connect(process.env.MONGO_URL);
 
 //Create Epress App
 const app = express();
 expressOasGenerator.handleResponses(app, {
-    tags:['categories', , 'recipes'],
+    alwaysServeDocs: true,
+    tags:['categories', 'recipes'],
     mongooseModels: mongoose.modelNames(),
 })
 
 //Apply Middlewares
-app.use(express.json())
+app.use(express.json());
+app.use(express.static('uploads'));
 
 
 
