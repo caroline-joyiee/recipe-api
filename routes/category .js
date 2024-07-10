@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import { getCategories, postCategory } from "../controllers/catergory-controller.js";
-const upload = multer({dest: 'uploads'})
+const upload = multer({dest: 'uploads'});
 
 //Create Upload Middleware
 
